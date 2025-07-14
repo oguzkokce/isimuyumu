@@ -54,13 +54,15 @@ export default function Home() {
   const [sonuc, setSonuc] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isim1.trim() && isim2.trim()) {
       setSonuc(isimUyumu(isim1, isim2));
       setShowResult(true);
     }
   }
+  
+  
 
   function reset() {
     setIsim1("");
