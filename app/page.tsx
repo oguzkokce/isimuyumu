@@ -4,8 +4,7 @@ import styles from "./page.module.css";
 import clsx from "clsx";
 
 // Türkçe karakter, büyük/küçük harf, boşluk farkı tamamen ortadan kalkar
-function normalizeName(s) {
-  // Tüm Türkçe harf eşlemeleri burada
+function normalizeName(s: string) {
   const map = {
     "ç": "c", "Ç": "c",
     "ğ": "g", "Ğ": "g",
@@ -19,8 +18,9 @@ function normalizeName(s) {
     .split("")
     .map(ch => map[ch] || ch.toLowerCase())
     .join("")
-    .replace(/[^a-z]/g, ""); // Türk alfabesi dışındaki her şeyi at
+    .replace(/[^a-z]/g, "");
 }
+
 
 
 function isimUyumu(isim1, isim2) {
