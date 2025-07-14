@@ -21,30 +21,21 @@ function normalizeName(s: string): string {
     .replace(/[^a-z]/g, "");
 }
 
-
-
-
-function isimUyumu(isim1, isim2) {
+function isimUyumu(isim1: string, isim2: string): number {
   const isimA = normalizeName(isim1);
   const isimB = normalizeName(isim2);
   const isimler = [isimA, isimB].sort();
-
- 
-  if (isimler[0] === "ikra" && isimler[1] === "oguz") {
-    return 100;
-  }
-
+  if (isimler[0] === "ikra" && isimler[1] === "oguz") return 100;
   let birlesik = isimA + isimB;
-  let harfler = [];
-  let sayilar = [];
+  let harfler: string[] = [], sayilar: number[] = [];
   for (let h of birlesik) {
     if (!harfler.includes(h)) {
       harfler.push(h);
-      sayilar.push([...birlesik].filter((x) => x === h).length);
+      sayilar.push([...birlesik].filter(x => x === h).length);
     }
   }
   while (sayilar.length > 2) {
-    let yeni = [];
+    let yeni: number[] = [];
     for (let i = 0; i < Math.floor(sayilar.length / 2); i++) {
       yeni.push(sayilar[i] + sayilar[sayilar.length - 1 - i]);
     }
@@ -55,6 +46,7 @@ function isimUyumu(isim1, isim2) {
   }
   return parseInt(sayilar.join(""));
 }
+
 
 export default function Home() {
   const [isim1, setIsim1] = useState("");
