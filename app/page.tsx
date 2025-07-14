@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 import clsx from "clsx";
 
 // Türkçe karakter, büyük/küçük harf, boşluk farkı tamamen ortadan kalkar
-function normalizeName(s: string) {
-  const map = {
+function normalizeName(s: string): string {
+  const map: { [key: string]: string } = {
     "ç": "c", "Ç": "c",
     "ğ": "g", "Ğ": "g",
     "ı": "i", "I": "i", "İ": "i", "i": "i",
@@ -16,10 +16,11 @@ function normalizeName(s: string) {
   return (s || "")
     .replace(/\s+/g, "")
     .split("")
-    .map(ch => map[ch] || ch.toLowerCase())
+    .map(ch => map[ch] ?? ch.toLowerCase())
     .join("")
     .replace(/[^a-z]/g, "");
 }
+
 
 
 
