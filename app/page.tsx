@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import clsx from "clsx";
 
-// Türkçe karakter, büyük/küçük harf, boşluk farkı tamamen ortadan kalkar
+// Tüm harf işlemleri için tipli normalize fonksiyonu
 function normalizeName(s: string): string {
   const map: { [key: string]: string } = {
     "ç": "c", "Ç": "c",
@@ -16,11 +16,12 @@ function normalizeName(s: string): string {
   return (s || "")
     .replace(/\s+/g, "")
     .split("")
-    .map(ch => map[ch] ?? ch.toLowerCase())
+    .map((ch: string) => map[ch] ?? ch.toLowerCase())
     .join("")
     .replace(/[^a-z]/g, "");
 }
 
+// Tipli isim uyumu algoritması
 function isimUyumu(isim1: string, isim2: string): number {
   const isimA = normalizeName(isim1);
   const isimB = normalizeName(isim2);
@@ -47,12 +48,11 @@ function isimUyumu(isim1: string, isim2: string): number {
   return parseInt(sayilar.join(""));
 }
 
-
 export default function Home() {
-  const [isim1, setIsim1] = useState("");
-  const [isim2, setIsim2] = useState("");
-  const [sonuc, setSonuc] = useState(null);
-  const [showResult, setShowResult] = useState(false);
+  const [isim1, setIsim1] = useState<string>("");
+  const [isim2, setIsim2] = useState<string>("");
+  const [sonuc, setSonuc] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState<boolean>(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,8 +61,6 @@ export default function Home() {
       setShowResult(true);
     }
   }
-  
-  
 
   function reset() {
     setIsim1("");
@@ -81,7 +79,7 @@ export default function Home() {
           type="text"
           placeholder="Birinci isim"
           value={isim1}
-          onChange={e => setIsim1(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsim1(e.target.value)}
           maxLength={20}
           required
         />
@@ -90,7 +88,7 @@ export default function Home() {
           type="text"
           placeholder="İkinci isim"
           value={isim2}
-          onChange={e => setIsim2(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsim2(e.target.value)}
           maxLength={20}
           required
         />
